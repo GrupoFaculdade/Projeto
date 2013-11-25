@@ -36,6 +36,7 @@ public class DadositensNota  implements InterfaceIntensNota{
         stmt.setInt(2, intensNot.getQtdComprada());
         stmt.setInt(3, intensNot.getProduto().getCodProduto());
         stmt.execute();
+         banco.desconectar();
         
     }
 
@@ -48,8 +49,7 @@ public class DadositensNota  implements InterfaceIntensNota{
         stmt.setInt(3, intensNot.getProduto().getCodProduto());
         stmt.setInt(4,intensNot.getNotaf().getCodNotaFiscal());
         stmt.executeUpdate();
-        
-        
+         banco.desconectar();
     }
 
     @Override
@@ -57,8 +57,7 @@ public class DadositensNota  implements InterfaceIntensNota{
         stmt = banco.conectar().prepareStatement("delete from itensNota where codProduto=?");
         stmt.setInt(3, intensNot.getProduto().getCodProduto());
         stmt.execute();
-        
-       
+         banco.desconectar();
     }
 
     @Override
@@ -77,6 +76,7 @@ public class DadositensNota  implements InterfaceIntensNota{
              itensnota.getProduto().setCodProduto(resultado.getInt(3));
              
             listagem.add(itensnota);
+            banco.desconectar();
         }
       return listagem;
     }

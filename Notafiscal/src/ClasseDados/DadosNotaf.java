@@ -35,7 +35,7 @@ public class DadosNotaf implements InterfaceNotaFiscal{
         nota.setValorTotal(resultado.getString(2));
         nota.setDataNotafiscal(resultado.getString(3));
         nota.getFunc().setMatricula(resultado.getInt(4));
-        
+        banco.desconectar();
     }
 //(codNf int primary key identity,valortotal decimal(10,2),datanf smalldatetime,codCliente varchar(50) references cliente(codCliente), 
  //codFuncionario varchar(50) references funcionario(codFuncionario));
@@ -43,6 +43,7 @@ public class DadosNotaf implements InterfaceNotaFiscal{
     public void remover(int codNotaFiscal) throws ClassNotFoundException, SQLException {
         stmt = banco.conectar().prepareStatement("delete from nf where codNf=?");
     stmt.setInt(1, codNotaFiscal);
+     banco.desconectar();
     }
 
     @Override
@@ -53,5 +54,6 @@ public class DadosNotaf implements InterfaceNotaFiscal{
          stmt.setString(3, notaf.getCli().getCodCli());
          stmt.setInt(4, notaf.getCodNotaFiscal());
          stmt.executeUpdate();
-}
+ banco.desconectar();
+    }
 }

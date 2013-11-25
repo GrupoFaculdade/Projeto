@@ -15,6 +15,7 @@ public class Cliente {
     private String cpf;
     private String rg;
     private Endereco endcli;
+    private String codCli;
 
     /**
      * @return the Nome
@@ -71,6 +72,22 @@ public class Cliente {
     public void setEndcli(Endereco endcli) {
         this.endcli = endcli;
     }
+
+    /**
+     * @return the codCli
+     */
+    public String getCodCli() {
+        return codCli;
+    }
+
+    /**
+     * @param codCli the codCli to set
+     */
+    public void setCodCli(String codCli) {
+        this.codCli = codCli;
+    }
+
+
     
     
 }

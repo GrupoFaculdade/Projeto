@@ -7,37 +7,51 @@
 package ClasseDados;
 
 import ClasseBasica.CamadaBanco;
-import ClasseBasica.Produto;
+import ClasseBasica.Notaf;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
+
 
 /**
  *
  * @author NeGo
  */
-public class DadosNotaf implements InterfaceProduto{
-    private CamadaBanco banco;
-    private PreparedStatement stmt;
+public class DadosNotaf implements InterfaceNotaFiscal{
+        private CamadaBanco banco;
+        private PreparedStatement stmt;
+       public DadosNotaf(){
+         banco = new CamadaBanco();
+       }
 
     @Override
-    public void cadastrar(Produto prod) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void listar(int codNotaFiscal) throws ClassNotFoundException, SQLException {
+     String Nota = codNotaFiscal +"";
+        stmt = banco.conectar().prepareStatement("SELECT * FROM nf WHERE codNf= ?");
+        ResultSet resultado = stmt.executeQuery();
+        Notaf nota = new Notaf();
+        nota.setCodNotaFiscal(resultado.getInt(1));
+        nota.setValorTotal(resultado.getString(2));
+        nota.setDataNotafiscal(resultado.getString(3));
+        nota.getFunc().setMatricula(resultado.getInt(4));
+        
+    }
+//(codNf int primary key identity,valortotal decimal(10,2),datanf smalldatetime,codCliente varchar(50) references cliente(codCliente), 
+ //codFuncionario varchar(50) references funcionario(codFuncionario));
+    @Override
+    public void remover(int codNotaFiscal) throws ClassNotFoundException, SQLException {
+        stmt = banco.conectar().prepareStatement("delete from nf where codNf=?");
+    stmt.setInt(1, codNotaFiscal);
     }
 
     @Override
-    public void alterar(int codProduto, Produto prod) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void remover(int codProduto) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Produto> listar(String list) throws ClassNotFoundException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    public void alterar(int codNotaFiscal, Notaf notaf) throws ClassNotFoundException, SQLException {
+         stmt = banco.conectar().prepareStatement("update nf  set valortotal=?, datafn=?, codCliente=? where codNf=?");
+         stmt.setString(1, notaf.getValorTotal());
+         stmt.setString(2, notaf.getDataNotafiscal());
+         stmt.setString(3, notaf.getCli().getCodCli());
+         stmt.setInt(4, notaf.getCodNotaFiscal());
+         stmt.executeUpdate();
+}
 }

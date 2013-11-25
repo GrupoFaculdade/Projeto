@@ -6,6 +6,7 @@
 
 package ClasseDados;
 
+import ClasseBasica.NotaFiscalException;
 import ClasseBasica.Notaf;
 import java.sql.SQLException;
 
@@ -14,8 +15,7 @@ import java.sql.SQLException;
  * @author NeGo
  */
 public interface InterfaceNotaFiscal {
-    public void listar(int codNotaFiscal) throws ClassNotFoundException, SQLException;
-    public void remover(int codNotaFiscal)throws ClassNotFoundException, SQLException;
-    public void alterar(int codNotaFiscal, Notaf notaf)throws ClassNotFoundException, SQLException;
-    
+    public void listar(int codNotaFiscal) throws ClassNotFoundException, SQLException, NotaFiscalException;
+    public void remover(int codNotaFiscal)throws ClassNotFoundException, SQLException, NotaFiscalException;
+    public void alterar(int codNotaFiscal, Notaf notaf)throws ClassNotFoundException, SQLException, NotaFiscalException;
 }
